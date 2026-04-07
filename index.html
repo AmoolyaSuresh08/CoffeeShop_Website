@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f0608;
+      --bg-2:#1a080d;
+      --card:rgba(255,255,255,0.06);
+      --line:rgba(255,255,255,0.11);
+      --text:#f7efef;
+      --muted:rgba(255,255,255,0.68);
+      --soft:rgba(255,255,255,0.46);
+      --red:#a11432;
+      --red-2:#c01d44;
+      --gold:#f2d6a2;
+      --green:#495f39;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(161,20,50,.28), transparent 28%),
+        radial-gradient(circle at 85% 12%, rgba(73,95,57,.18), transparent 22%),
+        linear-gradient(180deg, #18070b 0%, #100608 45%, #0c0507 100%);
+      overflow-x:hidden;
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{display:block;width:100%}
+
+    .container{
+      width:min(1220px, calc(100% - 48px));
+      margin:0 auto;
+    }
+
+    .glass{
+      background:var(--card);
+      border:1px solid var(--line);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(15,6,8,.72);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:78px;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .logo{
+      width:48px;height:48px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, var(--red), var(--green));
+      border:1px solid rgba(255,255,255,.1);
+      font-size:22px;
+      box-shadow:0 0 35px rgba(161,20,50,.35);
+    }
+
+    .brand small{
+      display:block;
+      color:var(--soft);
+      letter-spacing:.34em;
+      text-transform:uppercase;
+      font-size:10px;
+      margin-bottom:2px;
+    }
+
+    .brand strong{
+      font-family:'Cormorant Garamond', serif;
+      font-size:32px;
+      font-weight:700;
+      letter-spacing:.02em;
+      line-height:1;
+    }
+
+    .menu-links{
+      display:flex;
+      align-items:center;
+      gap:30px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .menu-links a:hover{color:#fff}
+
+    .actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      font:inherit;
+      padding:13px 22px;
+      border-radius:999px;
+      transition:.25s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .btn-outline{
+      background:rgba(255,255,255,.05);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .btn-outline:hover{background:rgba(255,255,255,.1)}
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--red), var(--red-2));
+      color:#fff;
+      box-shadow:0 14px 34px rgba(161,20,50,.32);
+    }
+    .btn-primary:hover{transform:translateY(-1px)}
+
+    .hero{
+      position:relative;
+      min-height:94vh;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+    }
+
+    .hero-bg{
+      position:absolute;inset:0;
+      background:
+        linear-gradient(90deg, rgba(10,5,7,.86) 0%, rgba(23,8,13,.75) 42%, rgba(23,8,13,.55) 100%),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      transform:scale(1.02);
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(179,28,67,.25), transparent 24%),
+        radial-gradient(circle at 82% 18%, rgba(109,139,84,.18), transparent 20%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      align-items:center;
+      gap:48px;
+      padding:60px 0;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.08);
+      padding:10px 16px;
+      border-radius:999px;
+      color:#fff;
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    .hero h1{
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(56px, 8vw, 112px);
+      line-height:.92;
+      margin:18px 0 18px;
+      font-weight:700;
+      max-width:780px;
+    }
+
+    .hero h1 .rose{color:#ffc1d0}
+    .hero h1 .gold{color:var(--gold)}
+
+    .hero p{
+      max-width:560px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.8;
+      margin:0 0 30px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-bottom:34px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      max-width:640px;
+    }
+
+    .stat{
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.06);
+      border-radius:22px;
+      padding:18px 16px;
+      backdrop-filter:blur(16px);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:28px;
+      color:var(--gold);
+      margin-bottom:6px;
+    }
+
+    .stat span{
+      color:var(--soft);
+      font-size:11px;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      line-height:1.5;
+    }
+
+    .feature-card{
+      padding:12px;
+      border-radius:34px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .feature-card img{
+      height:580px;
+      object-fit:cover;
+      border-radius:28px;
+    }
+
+    .feature-overlay{
+      position:absolute;
+      left:28px; right:28px; bottom:28px;
+      padding:20px 22px;
+      border-radius:24px;
+      background:rgba(18,8,11,.76);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(16px);
+    }
+
+    .feature-overlay small{
+      color:var(--soft);
+      font-size:11px;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+    }
+
+    .feature-overlay h3{
+      margin:8px 0 0;
+      font-size:30px;
+      font-family:'Cormorant Garamond', serif;
+      font-weight:700;
+    }
+
+    .feature-overlay .price{
+      position:absolute;
+      top:20px; right:20px;
+      background:linear-gradient(135deg, var(--red), var(--red-2));
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    section{padding:34px 0 24px}
+
+    .section-heading{
+      margin-bottom:28px;
+    }
+
+    .section-heading span{
+      display:inline-block;
+      color:#f0cad3;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.28em;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      padding:8px 14px;
+      border-radius:999px;
+      margin-bottom:16px;
+    }
+
+    .section-heading h2{
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(38px, 5vw, 64px);
+      margin:0 0 8px;
+      line-height:.98;
+    }
+
+    .section-heading p{
+      margin:0;
+      color:var(--muted);
+      max-width:760px;
+      line-height:1.8;
+    }
+
+    .essentials{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:18px;
+      margin-top:-20px;
+      position:relative;
+      z-index:5;
+    }
+
+    .essential{
+      border-radius:26px;
+      padding:24px;
+    }
+
+    .icon{
+      width:52px;height:52px;
+      display:grid;
+      place-items:center;
+      border-radius:18px;
+      background:linear-gradient(135deg, var(--red), var(--green));
+      font-size:20px;
+      margin-bottom:16px;
+    }
+
+    .essential h3{
+      margin:0 0 10px;
+      font-size:22px;
+      font-family:'Cormorant Garamond', serif;
+    }
+
+    .essential p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:14px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+    }
+
+    .menu-card{
+      overflow:hidden;
+      border-radius:28px;
+      transition:.3s ease;
+    }
+
+    .menu-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(255,255,255,.18);
+    }
+
+    .menu-card .image-wrap{
+      position:relative;
+      overflow:hidden;
+      height:290px;
+    }
+
+    .menu-card .image-wrap img{
+      height:100%;
+      object-fit:cover;
+      transition:transform .7s ease;
+    }
+
+    .menu-card:hover .image-wrap img{transform:scale(1.06)}
+
+    .tag{
+      position:absolute;
+      top:16px; left:16px;
+      background:rgba(161,20,50,.82);
+      border:1px solid rgba(255,255,255,.14);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+    }
+
+    .menu-card .content{
+      padding:20px;
+    }
+
+    .row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .menu-card h3{
+      margin:0;
+      font-size:24px;
+      font-family:'Cormorant Garamond', serif;
+      line-height:1.05;
+    }
+
+    .menu-card .price{
+      color:var(--gold);
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .note{
+      margin-top:10px;
+      color:var(--soft);
+      font-size:11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:1.12fr .88fr;
+      gap:24px;
+    }
+
+    .cta{
+      border-radius:34px;
+      padding:40px;
+      background:
+        linear-gradient(135deg, rgba(161,20,50,.24), rgba(73,95,57,.18)),
+        rgba(255,255,255,.05);
+    }
+
+    .cta small,
+    .signin small,
+    .info-card small{
+      color:var(--soft);
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      font-size:11px;
+    }
+
+    .cta h3,
+    .signin h3{
+      font-family:'Cormorant Garamond', serif;
+      font-size:50px;
+      margin:16px 0 10px;
+      line-height:.95;
+    }
+
+    .cta p,
+    .signin p,
+    .info-card p{
+      color:var(--muted);
+      line-height:1.8;
+      margin:0;
+    }
+
+    .cta .hero-buttons{margin-top:28px;margin-bottom:0}
+
+    .signin{
+      border-radius:34px;
+      padding:40px;
+    }
+
+    .field{
+      margin-top:18px;
+    }
+
+    .field input{
+      width:100%;
+      height:58px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.1);
+      background:#16090d;
+      color:#fff;
+      padding:0 18px;
+      font:inherit;
+      outline:none;
+    }
+
+    .field input::placeholder{color:rgba(255,255,255,.34)}
+    .field input:focus{border-color:rgba(255,193,208,.4)}
+
+    .full{width:100%; margin-top:18px; height:58px}
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .info-card{
+      border-radius:26px;
+      padding:24px;
+    }
+
+    .info-card h4{
+      margin:14px 0 8px;
+      font-size:30px;
+      font-family:'Cormorant Garamond', serif;
+      line-height:.95;
+    }
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:18px;
+      padding:28px 0 40px;
+    }
+
+    .footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      color:var(--soft);
+      font-size:14px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:24px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 1080px){
+      .hero-inner,
+      .split{
+        grid-template-columns:1fr;
+      }
+      .feature-card img{height:520px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .essentials,
+      .info-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media (max-width: 760px){
+      .container{width:min(100% - 28px, 1220px)}
+      .menu-links{display:none}
+      .actions .btn-outline{display:none}
+      .hero{min-height:auto}
+      .hero-inner{padding:42px 0 30px}
+      .hero h1{font-size:56px}
+      .hero p{font-size:16px}
+      .stats,
+      .essentials,
+      .grid,
+      .info-grid{
+        grid-template-columns:1fr;
+      }
+      .feature-card img{height:420px}
+      .cta, .signin{padding:28px}
+      .cta h3, .signin h3{font-size:40px}
+      .footer{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">🍵</div>
+        <div>
+          <small>Exclusive House</small>
+          <strong>Maison Coffee</strong>
+        </div>
+      </div>
+
+      <nav class="menu-links">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+      </nav>
+
+      <div class="actions">
+        <a href="#signin" class="btn btn-outline">Sign In</a>
+        <a href="#join" class="btn btn-primary">Join Now</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="container hero-inner">
+      <div>
+        <h1>
+          A royal <span class="rose">coffee</span> experience,<br>
+          dipped in <span class="gold">seasonal warmth</span>.
+        </h1>
+        <p>
+          Luxury drinks. Warm croissants. Silk desserts. A rich house made for slow moments and elegant taste.
+        </p>
+        <div class="hero-buttons">
+          <a href="#menu" class="btn btn-primary">Explore Menu</a>
+          <a href="#join" class="btn btn-outline">Reserve a Table</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>5</strong>
+            <span>Signature Coffee's</span>
+          </div>
+          <div class="stat">
+            <strong>5</strong>
+            <span>Pastries & Desserts</span>
+          </div>
+          <div class="stat">
+            <strong>6 Days</strong>
+            <span>Open Weekly</span>
+          </div>
+          <div class="stat">
+            <strong>VIP</strong>
+            <span>Member Access</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass feature-card">
+        <img src="https://i.pinimg.com/736x/29/0a/2a/290a2af0fb9ffaa3e44819bb6610bfda.jpg" alt="Featured coffee drink">
+        
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section id="menu">
+    <div class="container">
+      <div class="section-heading">
+        <span>Signature Menu</span>
+        <h2>Five premium coffee creations.</h2>
+      </div>
+
+      <div class="grid">
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/0d/b2/53/0db25332a0c77bfe34f149bd4a9dcbe9.jpg" alt="Pumpkin Spice Latte">
+            <div class="tag">Signature</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Pumpkin Spice Latte</h3>
+              <div class="price">$9</div>
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/c6/18/9b/c6189bff4df8172cb71db58c81e4cd38.jpg" alt="Maple Pecan Latte">
+            <div class="tag">Signature</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Maple Pecan Latte</h3>
+              <div class="price">$10</div>
+            
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/236x/92/49/1b/92491b37788a267181a63353663dec82.jpg" alt="Cinnamon Honey Cappuccino">
+            <div class="tag">Signature</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Cinnamon Honey Cappuccino</h3>
+              <div class="price">$11</div>
+           
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/96/92/b6/9692b630f221d132c9b3fb91b4899be2.jpg" alt="Toasted Caramel Mocha">
+            <div class="tag">Signature</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Toasted Caramel Mocha</h3>
+              <div class="price">$8</div>
+            
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/ba/25/ef/ba25ef13bef66e8c0a9eeb499bf3b9d2.jpg" alt="Spiced Vanilla Cold Brew">
+            <div class="tag">Signature</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Spiced Vanilla Cold Brew</h3>
+              <div class="price">$10</div>
+            
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <span>Bites & Desserts</span>
+        <h2>Warm croissants and elegant desserts.</h2>
+        <p>Soft textures, glossy finishes, and a refined café pairing for every pour.</p>
+      </div>
+
+      <div class="grid">
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/67/34/87/673487a3f4cdb0456de511b4c54ca0cb.jpg" alt="Pumpkin Cream Croissant">
+            <div class="tag">Fresh Bake</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Pumpkin Cream Croissant</h3>
+              <div class="price">$5</div>
+            
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/3f/34/e7/3f34e765e03eabe545bdb0c30cb8314b.jpg" alt="Cinnamon Sugar Croissant">
+            <div class="tag">Fresh Bake</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Cinnamon Sugar Croissant</h3>
+              <div class="price">$7</div>
+            
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/87/d1/40/87d14087a6ac97dd3faf413558326721.jpg" alt="Maple Pecan Tart">
+            <div class="tag">Dessert</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Maple Pecan Tart</h3>
+              <div class="price">$9</div>
+            
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/1200x/37/ac/91/37ac91ccbc2a1cfd7e99e100804b4ff6.jpg" alt="Caramel Apple Cake">
+            <div class="tag">Dessert</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Caramel Apple Cake</h3>
+              <div class="price">$8</div>
+            
+        </article>
+
+        <article class="glass menu-card">
+          <div class="image-wrap">
+            <img src="https://i.pinimg.com/736x/f4/4a/e2/f44ae2fba61b82e5c044cbdd118464ad.jpg" alt="Cloud Cheesecake">
+            <div class="tag">Dessert</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <h3>Cloud Cheesecake</h3>
+              <div class="price">$8</div>
+           
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="container split">
+      <div class="glass cta">
+        <small>Join Now</small>
+        <h3>Become part of the house.</h3>
+        <p>Early menu drops. Member-only tastings. Priority reservations.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary">Join Maison Coffee</a>
+        </div>
+      </div>
+
+      <div class="glass signin" id="signin">
+        <small>Sign In</small>
+        <h3>Welcome back.</h3>
+        <div class="field">
+          <input type="email" placeholder="Email address">
+        </div>
+        <div class="field">
+          <input type="password" placeholder="Password">
+        </div>
+        <button class="btn btn-primary full">Sign In</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container info-grid">
+      <div class="glass info-card">
+        <small>Hours</small>
+        <h4>Open Daily</h4>
+        <p>8:00 AM - 10:00 PM</p>
+      </div>
+      <div class="glass info-card">
+        <small>Location</small>
+        <h4>Downtown Denton</h4>
+        <p>An elevated café space with lounge seating and timeless charm.</p>
+      </div>
+      <div class="glass info-card">
+        <small>Reservations</small>
+        <h4>Members First</h4>
+        <p>Preferred seating and tasting bookings for house members.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer">
+      <div>Maison Coffee - premium coffee bar & dessert lounge.</div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#join">Join Now</a>
+        <a href="#signin">Sign In</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
